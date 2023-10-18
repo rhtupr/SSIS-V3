@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- Colleges -->
+    <div class="w3-container w3-padding-32" id="contact">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details</h3>
+        <p>Lets get in touch and talk about your next project.</p>
+        <form action="/action_page.php" target="_blank">
+            <input class="w3-input w3-border" type="text" placeholder="College Code" required name="College Code">
+            <input class="w3-input w3-section w3-border" type="text" placeholder="College Name" required name="College Name">
+            <button class="w3-button w3-black w3-section" type="submit">
+                <i class="fa fa-paper-plane"></i> ADD COLLEGE
+            </button>
+        </form>
+    </div>
+
+    <!-- Colleges Section -->
+    <div class="w3-container w3-padding-32" id="colleges">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">College Information</h3>
+
+        <!-- Search Bar -->
+        <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a college" id="searchInput">
+
+        <!-- College Table -->
+        <table class="w3-table w3-striped">
+            <tr>
+                <th>College Code</th>
+                <th>College Name</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>CCS</td>
+                <td>College of Computer Studies</td>
+                <td>
+                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+                </td>
+            </tr>
+            <tr>
+                <td>CBM</td>
+                <td>College of Business and Management</td>
+                <td>
+                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+                </td>
+            </tr>
+            <!-- Add more college rows as needed -->
+        </table>
+    </div>
+
+{% endblock %}

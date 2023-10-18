@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+  <!-- Students -->
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
+    <p>Lets get in touch and talk about your next project.</p>
+    <form action="/action_page.php" target="_blank">
+      <input class="w3-input w3-border" type="text" placeholder="ID" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="First name" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Last name" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Course" required name="Comment">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Year" required name="Comment">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Gender" required name="Comment">
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-paper-plane"></i> ADD STUDENT
+      </button>
+    </form>
+  </div>
+
+<!-- Student Section -->
+<div class="w3-container w3-padding-32" id="students">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Student Information</h3>
+
+    <!-- Search Bar -->
+    <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a student" id="searchInput">
+
+    <!-- Student Table -->
+    <table class="w3-table w3-striped">
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Gender</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>YYYY-0001</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>Math</td>
+            <td>1st</td>
+            <td>Male</td>
+            <td>
+                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+            </td>            
+        </tr>
+        <tr>
+            <td>YYYY-0002</td>
+            <td>Jane</td>
+            <td>Smith</td>
+            <td>History</td>
+            <td>2nd</td>
+            <td>Female</td>
+            <td>
+                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+            </td>            
+        </tr>
+        <!-- Add more student rows as needed -->
+    </table>
+</div>
+{% endblock %}
