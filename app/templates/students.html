@@ -26,40 +26,33 @@
 
     <!-- Student Table -->
     <table class="w3-table w3-striped">
-        <tr>
-            <th>Student ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Course</th>
-            <th>Year</th>
-            <th>Gender</th>
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td>YYYY-0001</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>Math</td>
-            <td>1st</td>
-            <td>Male</td>
-            <td>
-                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-            </td>            
-        </tr>
-        <tr>
-            <td>YYYY-0002</td>
-            <td>Jane</td>
-            <td>Smith</td>
-            <td>History</td>
-            <td>2nd</td>
-            <td>Female</td>
-            <td>
-                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-            </td>            
-        </tr>
-        <!-- Add more student rows as needed -->
+      <tr>
+        <th>Student ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Course</th>
+        <th>Year</th>
+        <th>Gender</th>
+        <th>Actions</th>
+    </tr>
+    <tr>
+      {% for student in students %}
+      <tr>
+        <td> {{ student.id }}</td>
+        <td> {{ student.firstname }}</td>
+        <td> {{ student.lastname }}</td>
+        <td> {{ student.coursecode }}</td>
+        <td> {{ student.yearlevel }}</td>
+        <td> {{ student.gender }}</td>
+        <td>
+            <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+            <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+        </td>            
+      </tr>        
+      {% endfor %}
+    </tbody>
     </table>
 </div>
 {% endblock %}
+
+

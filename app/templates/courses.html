@@ -27,29 +27,21 @@
         <tr>
             <th>Course Code</th>
             <th>Course Name</th>
-            <th>College</th>
+            <th>College Code</th>
             <th>Actions</th>
         </tr>
         <tr>
-            <td>BSCS</td>
-            <td>Bachelor of Science in Computer Science</td>
-            <td>College of Engineering</td>
-            <td>
-                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>BSIT</td>
-            <td>Bachelor of Science in Information Technology</td>
-            <td>College of Information Technology</td>
-            <td>
-                <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-            </td>
-        </tr>
-        <!-- Add more course rows as needed -->
-    </table>
-</div>
-
+            {% for course in courses %}
+            <tr>
+                <td> {{ course.coursecode }}</td>
+                <td> {{ course.coursename }}</td>
+                <td> {{ course.collegecode }}</td>
+                <td>
+                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

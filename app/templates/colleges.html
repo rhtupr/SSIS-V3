@@ -20,31 +20,24 @@
         <!-- Search Bar -->
         <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a college" id="searchInput">
 
-        <!-- College Table -->
-        <table class="w3-table w3-striped">
-            <tr>
-                <th>College Code</th>
-                <th>College Name</th>
-                <th>Actions</th>
-            </tr>
-            <tr>
-                <td>CCS</td>
-                <td>College of Computer Studies</td>
-                <td>
-                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>CBM</td>
-                <td>College of Business and Management</td>
-                <td>
-                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-                </td>
-            </tr>
-            <!-- Add more college rows as needed -->
-        </table>
-    </div>
-
+                <!-- College Table -->
+                <table class="w3-table w3-striped">
+                    <tr>
+                        <th>College Code</th>
+                        <th>College Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                    {% for college in colleges %}
+                        <tr>
+                            <td> {{ college.collegecode }}</td>
+                            <td> {{ college.collegename }}</td>
+                            <td>
+                            <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                            <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
 {% endblock %}
