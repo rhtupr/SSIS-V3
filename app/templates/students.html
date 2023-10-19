@@ -3,30 +3,37 @@
   <!-- Students -->
   <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-   
-      <form method="POST">
-        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-        <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
-        <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
-        <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>   
-        <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Coursecode" required>
-        <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
-        <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>   
-
-
-
+    <form method="POST"  action="/students/add">
+      <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+      <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
+      <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+      <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>
+      <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Coursecode" required>
+      <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
+      <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> ADD STUDENT
       </button>
     </form>
   </div>
 
-<!-- Student Section -->
-<div class="w3-container w3-padding-32" id="students">
+  <!-- Student Section -->
+  <div class="w3-container w3-padding-32" id="students">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Student Information</h3>
 
-    <!-- Search Bar -->
-    <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a student" id="searchInput">
+<!-- Search Bar -->
+<form method="POST" action="/students/search">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="input-group mb-3">
+    <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a student" id="search_student" name="search_student">
+    <div class="input-group-append">
+      <button class="w3-button w3-black" type="submit">
+        <i class="fa fa-search"></i> SEARCH
+      </button>
+    </div>
+  </div>
+</form>
+
 
     <!-- Student Table -->
     <table class="w3-table w3-striped">
@@ -38,25 +45,23 @@
         <th>Year</th>
         <th>Gender</th>
         <th>Actions</th>
-    </tr>
-    <tr>
-      {% for student in students %}
+      </tr>
       <tr>
-        <td> {{ student.id }}</td>
-        <td> {{ student.firstname }}</td>
-        <td> {{ student.lastname }}</td>
-        <td> {{ student.coursecode }}</td>
-        <td> {{ student.yearlevel }}</td>
-        <td> {{ student.gender }}</td>
-        <td>
+        {% for student in students %}
+        <tr>
+          <td> {{ student.id }}</td>
+          <td> {{ student.firstname }}</td>
+          <td> {{ student.lastname }}</td>
+          <td> {{ student.coursecode }}</td>
+          <td> {{ student.yearlevel }}</td>
+          <td> {{ student.gender }}</td>
+          <td>
             <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
             <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
-        </td>            
-      </tr>        
-      {% endfor %}
-    </tbody>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-</div>
+  </div>
 {% endblock %}
-
-

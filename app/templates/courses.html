@@ -3,7 +3,7 @@
 <!-- Course -->
 <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-    <form method="POST">
+    <form method="POST"  action="/courses/add">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Course Code" required>
         <input class="w3-input w3-section w3-border" type="text" name="coursename" id="coursename" placeholder="Course Name" required>
@@ -19,8 +19,21 @@
 <div class="w3-container w3-padding-32" id="courses">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Course Information</h3>
 
-    <!-- Search Bar -->
-    <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a course" id="searchInput">
+
+<!-- Search Bar -->
+<form method="POST" action="/courses/search">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="input-group mb-3">
+      <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a course" id="search_course" name="search_course">
+      <div class="input-group-append">
+        <button class="w3-button w3-black" type="submit">
+          <i class="fa fa-search"></i> SEARCH
+        </button>
+      </div>
+    </div>
+  </form>
+
+
 
     <!-- Course Table -->
     <table class="w3-table w3-striped">
