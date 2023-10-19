@@ -28,3 +28,9 @@ def search_colleges():
             colleges = find_colleges(search_query)
     return render_template('colleges.html', colleges=colleges)
 
+@colleges_bp.route('/colleges/delete/<string:collegecode>', methods=['DELETE'])
+def remove_college(collegecode):
+    if request.method == 'DELETE':
+        print(collegecode)
+        delete_college(collegecode)
+        return jsonify({'success': True})

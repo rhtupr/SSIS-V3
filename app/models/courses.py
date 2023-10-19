@@ -25,4 +25,8 @@ def find_courses(course_search):
     cursor.close()
     return courses
 
-
+def delete_course(course_code):
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE FROM courses WHERE coursecode = %s", (course_code,))
+    mysql.connection.commit()
+    cursor.close()

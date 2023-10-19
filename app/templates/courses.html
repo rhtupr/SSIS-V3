@@ -51,10 +51,12 @@
                 <td> {{ course.collegecode }}</td>
                 <td>
                     <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-                    <a href="#"><i class="fa fa-trash fa-lg" title="Delete"></i></a>
+                    <button type="button" id="deleteCourse" course-code="{{course.coursecode}}" csrf-token="{{csrf_token()}}" onclick="deleteCourse(this)"><i class="fa fa-trash fa-lg" title="Delete"></i></button>
                 </td>
             </tr>
             {% endfor %}
         </table>
     </div>
 {% endblock %}
+
+
