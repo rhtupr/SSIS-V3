@@ -10,4 +10,10 @@ def studentread():
     cursor.close()
     return students
 
+def add_stu(id, firstname, lastname, coursecode, yearlevel, gender):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO students (id, firstname, lastname, coursecode, yearlevel, gender) VALUES (%s, %s, %s, %s, %s, %s)", (id, firstname, lastname, coursecode, yearlevel, gender))
+    mysql.connection.commit()
+    cursor.close()  
+
 

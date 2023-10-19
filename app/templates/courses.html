@@ -3,11 +3,11 @@
 <!-- Course -->
 <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-    <p>Lets get in touch and talk about your next project.</p>
-    <form action="/action_page.php" target="_blank">
-        <input class="w3-input w3-border" type="text" placeholder="Course Code" required name="Course Code">
-        <input class="w3-input w3-section w3-border" type="text" placeholder="Course name" required name="Email">
-        <input class="w3-input w3-section w3-border" type="text" placeholder="College" required name="Subject">
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Course Code" required>
+        <input class="w3-input w3-section w3-border" type="text" name="coursename" id="coursename" placeholder="Course Name" required>
+        <input class="w3-input w3-section w3-border" type="text" name="collegecode" id="collegecode" placeholder="College Code" required>   
 
         <button class="w3-button w3-black w3-section" type="submit">
             <i class="fa fa-paper-plane"></i> ADD COURSE

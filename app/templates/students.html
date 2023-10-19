@@ -3,14 +3,18 @@
   <!-- Students -->
   <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-    <p>Lets get in touch and talk about your next project.</p>
-    <form action="/action_page.php" target="_blank">
-      <input class="w3-input w3-border" type="text" placeholder="ID" required name="Name">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="First name" required name="Email">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Last name" required name="Subject">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Course" required name="Comment">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Year" required name="Comment">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Gender" required name="Comment">
+   
+      <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
+        <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+        <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>   
+        <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Coursecode" required>
+        <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
+        <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>   
+
+
+
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> ADD STUDENT
       </button>
