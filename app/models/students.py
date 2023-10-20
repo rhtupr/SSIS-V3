@@ -32,12 +32,9 @@ def delete_student(stud_id):
 
 def update_student(student_id, first_name, last_name, course_code, year_level, gender):
     cursor = mysql.connection.cursor()
-    update_query = "UPDATE student SET firstname = %s, lastname = %s, coursecode = %s, yearlevel = %s, gender = %s WHERE id = %s"
-    try:
-        cursor.execute(update_query, (first_name, last_name, course_code, year_level, gender))
-        mysql.connection.commit()
-    except mysql.connector.Error as err:  # Corrected exception name
-        print("Error: {}".format(err))
-        mysql.connection.rollback()
-    finally:
-        cursor.close()
+    update_query = "UPDATE students SET firstname = %s, lastname = %s, coursecode = %s, yearlevel = %s, gender = %s WHERE id = %s"
+    cursor.execute(update_query, (first_name, last_name, course_code, year_level, gender, student_id))
+    mysql.connection.commit()
+    cursor.close()
+
+        

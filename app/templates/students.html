@@ -71,7 +71,7 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Student Information</h3>
     <form method="POST" action="/students/edit" id="editStudentForm">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <input type="hidden" name="student_id" id="edit_student_id" value="">
+      <input type="hidden" name="student_id" id="edit_student_id">
       <label for="first_name">First Name:</label>
       <input class="w3-input w3-border" type="text" name="first_name" id="edit_student_firstname" placeholder="First Name" required>
       <label for="last_name">Last Name:</label>
@@ -97,12 +97,6 @@
       document.getElementById('edit_student_yearlevel').value = yearlevel;
       document.getElementById('edit_student_gender').value = gender;
       document.getElementById('edit_student_form').style.display = 'block';
-    }
-
-    function deleteStudent(studentId) {
-      if (confirm('Are you sure you want to delete this student?')) {
-        // Your deleteStudent function implementation here
-      }
     }
   </script>
 </div>

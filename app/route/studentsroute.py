@@ -48,21 +48,7 @@ def edit_student():
         course_code = request.form.get('course_code').upper()
         year_level = request.form.get('year_level')
         gender = request.form.get('gender').capitalize()
-
-        # You have used the wrong variable name here (students instead of student)
-        student = students.query.get(student_id)
-
-        if student:
-            student.firstname = first_name
-            student.lastname = last_name
-            student.coursecode = course_code
-            student.yearlevel = year_level
-            student.gender = gender
-
-            # Assuming that 'ssisv3' is the SQLAlchemy instance, not defined in the code.
-            ssisv3.session.commit()
-
+        update_student(student_id, first_name, last_name, course_code, year_level, gender)
         return redirect('/students/')
-
-
+    
 

@@ -30,3 +30,11 @@ def delete_course(course_code):
     cursor.execute("DELETE FROM courses WHERE coursecode = %s", (course_code,))
     mysql.connection.commit()
     cursor.close()
+    
+def update_course(coursecode, coursename, collegecode):
+    cursor = mysql.connection.cursor()
+    update_query = "UPDATE courses SET coursecode = %s, coursename = %s, collegecode = %s"
+    cursor.execute(update_query, (coursecode, coursename, collegecode))
+    mysql.connection.commit()
+    cursor.close()
+
