@@ -38,3 +38,10 @@ def update_course(coursecode, coursename, collegecode):
     mysql.connection.commit()
     cursor.close()
 
+def get_college():
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT collegecode FROM colleges"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result

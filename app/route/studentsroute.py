@@ -7,7 +7,8 @@ students_bp = Blueprint ('students', __name__)
 @students_bp.route('/students/')
 def students():
     students = studentread()
-    return render_template('students.html', students=students)
+    courses = get_course()
+    return render_template('students.html', students=students, courses=courses)
 
 @students_bp.route('/students/add', methods=['GET', 'POST'])
 def add_student():

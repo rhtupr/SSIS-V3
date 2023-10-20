@@ -8,7 +8,12 @@
       <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
       <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
       <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>
-      <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Coursecode" required>
+      <select class="w3-input w3-border" name="coursecode" id="coursecode" required>
+        <option value="" disabled selected>Coursecode</option>
+        {% for course in courses %}
+          <option value="{{course.coursecode}}">{{course.coursecode}}</option>
+        {% endfor %}
+      </select>
       <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
       <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>
       <button class="w3-button w3-black w3-section" type="submit">
@@ -77,7 +82,13 @@
       <label for="last_name">Last Name:</label>
       <input class="w3-input w3-border" type="text" name="last_name" id="edit_student_lastname" placeholder="Last Name" required>
       <label for="course_code">Course Code:</label>
-      <input class="w3-input w3-border" type="text" name="course_code" id="edit_student_coursecode" placeholder="Course Code" required>
+      <select class="w3-input w3-border" name="course_code" id="edit_student_coursecode" required>
+        {% for course in courses %}
+          {% if course.coursecode != course_code %}
+            <option value="{{course.coursecode}}">{{course.coursecode}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
       <label for="year_level">Year Level:</label>
       <input class="w3-input w3-border" type="text" name="year_level" id="edit_student_yearlevel" placeholder="Year Level" required>
       <label for "gender">Gender:</label>

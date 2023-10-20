@@ -6,9 +6,13 @@
     <form method="POST"  action="/courses/add">
         <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
         <input class="w3-input w3-border" type="text" name="coursecode" id="coursecode" placeholder="Course Code" required>
-        <input class="w3-input w3-section w3-border" type="text" name="coursename" id="coursename" placeholder="Course Name" required>
-        <input class="w3-input w3-section w3-border" type="text" name="collegecode" id="collegecode" placeholder="College Code" required>   
-
+        <input class="w3-input w3-section w3-border" type="text" name="coursename" id="coursename" placeholder="Course Name" required>  
+        <select class="w3-input w3-border" name="collegecode" id="collegecode" required>
+          <option value="" disabled selected>Collegecode</option>
+          {% for college in colleges %}
+            <option value="{{college.collegecode}}">{{college.collegecode}}</option>
+          {% endfor %}
+        </select>
         <button class="w3-button w3-black w3-section" type="submit">
             <i class="fa fa-paper-plane"></i> ADD COURSE
         </button>
@@ -70,7 +74,11 @@
           <label for="course_name">Course Name:</label>
           <input class="w3-input w3-border" type="text" name="course_name" id="edit_course_coursename" placeholder="Course Name" required>
           <label for="course_code">College Code:</label>
-          <input class="w3-input w3-border" type="text" name="college_code" id="edit_course_collegecode" placeholder="College Code" required>
+          <select class="w3-input w3-border" name="college_code" id="edit_course_collegecode" required>
+            {% for college in colleges %}
+              <option value="{{college.collegecode}}">{{college.collegecode}}</option>
+            {% endfor %}
+          </select>
           <button class="w3-button w3-black w3-section" type="submit">
             <i class="fa fa-save"></i> Save Changes
           </button>

@@ -37,4 +37,11 @@ def update_student(student_id, first_name, last_name, course_code, year_level, g
     mysql.connection.commit()
     cursor.close()
 
+def get_course():
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT coursecode FROM courses"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
         
