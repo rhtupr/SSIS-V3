@@ -3,8 +3,8 @@
   <!-- Students -->
   <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-    <form method="POST"  action="/students/add">
-      <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+    <form method="POST" action="/students/add">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
       <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
       <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>
@@ -21,19 +21,18 @@
   <div class="w3-container w3-padding-32" id="students">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Student Information</h3>
 
-<!-- Search Bar -->
-<form method="POST" action="/students/search">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <div class="input-group mb-3">
-    <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a student" id="search_student" name="search_student">
-    <div class="input-group-append">
-      <button class="w3-button w3-black" type="submit">
-        <i class="fa fa-search"></i> SEARCH
-      </button>
-    </div>
-  </div>
-</form>
-
+    <!-- Search Bar -->
+    <form method="POST" action="/students/search">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="input-group mb-3">
+        <input class="w3-input w3-border w3-section" type="text" placeholder="Search for a student" id="search_student" name="search_student">
+        <div class="input-group-append">
+          <button class="w3-button w3-black" type="submit">
+            <i class="fa fa-search"></i> SEARCH
+          </button>
+        </div>
+      </div>
+    </form>
 
     <!-- Student Table -->
     <table class="w3-table w3-striped">
@@ -46,23 +45,68 @@
         <th>Gender</th>
         <th>Actions</th>
       </tr>
-      <tr>
-        {% for student in students %}
-        <tr>
-          <td> {{ student.id }}</td>
-          <td> {{ student.firstname }}</td>
-          <td> {{ student.lastname }}</td>
-          <td> {{ student.coursecode }}</td>
-          <td> {{ student.yearlevel }}</td>
-          <td> {{ student.gender }}</td>
-          <td>
-            <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
-            <button type="button" id="deleteStudent" student-id="{{student.id}}" csrf-token="{{csrf_token()}}" onclick="deleteStudent(this)"><i class="fa fa-trash fa-lg" title="Delete"></i></button>
-
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
+      {% for student in students %}
+      <tr id="student_row_{{ student.id }}">
+        <td>{{ student.id }}</td>
+        <td>{{ student.firstname }}</td>
+        <td>{{ student.lastname }}</td>
+        <td>{{ student.coursecode }}</td>
+        <td>{{ student.yearlevel }}</td>
+        <td>{{ student.gender }}</td>
+        <td>
+          <button type="button" id="editStudent_{{ student.id }}" onclick="editStudent('{{ student.id }}', '{{ student.firstname }}', '{{ student.lastname }}', '{{ student.coursecode }}', '{{ student.yearlevel }}', '{{ student.gender }}')">
+            <i class="fa fa-edit fa-lg" title="Edit"></i>
+          </button>
+          <button type="button" id="deleteStudent_{{ student.id }}" student-id="{{ student.id }}" csrf-token="{{ csrf_token() }}" onclick="deleteStudent(this)">
+            <i class="fa fa-trash fa-lg" title="Delete"></i>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
     </table>
   </div>
+
+  <!-- Edit Student Form (Hidden by default) -->
+  <div class="w3-container w3-padding-32" id="edit_student_form" style="display: none;">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Student Information</h3>
+    <form method="POST" action="/students/edit" id="editStudentForm">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="student_id" id="edit_student_id" value="">
+      <label for="first_name">First Name:</label>
+      <input class="w3-input w3-border" type="text" name="first_name" id="edit_student_firstname" placeholder="First Name" required>
+      <label for="last_name">Last Name:</label>
+      <input class="w3-input w3-border" type="text" name="last_name" id="edit_student_lastname" placeholder="Last Name" required>
+      <label for="course_code">Course Code:</label>
+      <input class="w3-input w3-border" type="text" name="course_code" id="edit_student_coursecode" placeholder="Course Code" required>
+      <label for="year_level">Year Level:</label>
+      <input class="w3-input w3-border" type="text" name="year_level" id="edit_student_yearlevel" placeholder="Year Level" required>
+      <label for "gender">Gender:</label>
+      <input class="w3-input w3-border" type="text" name="gender" id="edit_student_gender" placeholder="Gender" required>
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-save"></i> Save Changes
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function editStudent(studentId, firstname, lastname, coursecode, yearlevel, gender) {
+      document.getElementById('edit_student_id').value = studentId;
+      document.getElementById('edit_student_firstname').value = firstname;
+      document.getElementById('edit_student_lastname').value = lastname;
+      document.getElementById('edit_student_coursecode').value = coursecode;
+      document.getElementById('edit_student_yearlevel').value = yearlevel;
+      document.getElementById('edit_student_gender').value = gender;
+      document.getElementById('edit_student_form').style.display = 'block';
+    }
+
+    function deleteStudent(studentId) {
+      if (confirm('Are you sure you want to delete this student?')) {
+        // Your deleteStudent function implementation here
+      }
+    }
+  </script>
+</div>
 {% endblock %}
+
+
+

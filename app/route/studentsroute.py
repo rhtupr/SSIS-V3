@@ -39,4 +39,30 @@ def remove_student(stud_id):
         delete_student(stud_id)
         return jsonify({'success': True})
 
+@students_bp.route('/students/edit', methods=['POST'])
+def edit_student():
+    if request.method == 'POST':
+        student_id = request.form.get('student_id')  # Get the student_id from the form
+        first_name = request.form.get('first_name').title()
+        last_name = request.form.get('last_name').title()
+        course_code = request.form.get('course_code').upper()
+        year_level = request.form.get('year_level')
+        gender = request.form.get('gender').capitalize()
+
+        # You have used the wrong variable name here (students instead of student)
+        student = students.query.get(student_id)
+
+        if student:
+            student.firstname = first_name
+            student.lastname = last_name
+            student.coursecode = course_code
+            student.yearlevel = year_level
+            student.gender = gender
+
+            # Assuming that 'ssisv3' is the SQLAlchemy instance, not defined in the code.
+            ssisv3.session.commit()
+
+        return redirect('/students/')
+
+
 
