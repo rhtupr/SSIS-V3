@@ -38,9 +38,9 @@ def remove_college(collegecode):
 @colleges_bp.route('/colleges/edit', methods=['POST'])
 def edit_college():
     if request.method == 'POST':
-        college_code = request.form.get('college_code')  
-        college_name = request.form.get('college_name').title()
-        update_student(college_code, college_name)
+        college_code = request.form.get('college_code').upper()
+        college_name = request.form.get('college_name')
+        update_college(college_code, college_name)
         return redirect('/colleges/')
     
 

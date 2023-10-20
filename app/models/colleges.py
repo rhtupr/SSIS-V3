@@ -32,8 +32,8 @@ def delete_college(college_code):
     
 def update_college(collegecode, collegename):
     cursor = mysql.connection.cursor()
-    update_query = "UPDATE colleges SET collegecode = %s, collegensme = %s"
-    cursor.execute(update_query, (collegecode, collegename))
+    update_query = "UPDATE colleges SET collegename = %s WHERE collegecode = %s"
+    cursor.execute(update_query, (collegename, collegecode))
     mysql.connection.commit()
     cursor.close()
 
