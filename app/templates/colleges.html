@@ -44,11 +44,36 @@
                             <td> {{ college.collegecode }}</td>
                             <td> {{ college.collegename }}</td>
                             <td>
-                            <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                            <button type="button" id="editCollege_{{ college.collegecode }}" onclick="editCollege('{{ college.collegeCODE }}''{{ college.collegename }}')"><i class="fa fa-edit fa-lg" title="Edit"></i></button>
+
                             <button type="button" id="deleteCollege" college-code="{{college.collegecode}}" csrf-token="{{csrf_token()}}" onclick="deleteCollege(this)"><i class="fa fa-trash fa-lg" title="Delete"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
                 </table>
             </div>
+
+  <!-- Edit Student Form (Hidden by default) -->
+  <div class="w3-container w3-padding-32" id="edit_student_form" style="display: none;">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit College Information</h3>
+    <form method="POST" action="/colleges/edit" id="editCollegeForm">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="college_id" id="edit_college_id">
+      <input class="w3-input w3-border" type="text" name="college_name" id="edit_college_collegename" placeholder="College Name" required>
+      <label for="course_code">Course Code:</label>
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-save"></i> Save Changes
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function editStudent(collegename) {
+      document.getElementById('edit_college_collegename').value = collegename;
+      document.getElementById('edit_college_form').style.display = 'block';
+    }
+  </script>
+</div>
+
 {% endblock %}
+

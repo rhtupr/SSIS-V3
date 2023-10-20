@@ -50,13 +50,41 @@
                 <td> {{ course.coursename }}</td>
                 <td> {{ course.collegecode }}</td>
                 <td>
-                    <a href="#"><i class="fa fa-edit fa-lg" title="Edit"></i></a>
+                    <button type="button" id="editCourse_{{ course.coursecode }}" onclick="editCourse('{{ course.coursecode }}','{{ course.coursename }}', '{{ course.collegecode }}')"><i class="fa fa-edit fa-lg" title="Edit"></i>
+                    </button>
                     <button type="button" id="deleteCourse" course-code="{{course.coursecode}}" csrf-token="{{csrf_token()}}" onclick="deleteCourse(this)"><i class="fa fa-trash fa-lg" title="Delete"></i></button>
-                </td>
+                    </button>
+                  </td>
+
             </tr>
             {% endfor %}
         </table>
     </div>
-{% endblock %}
 
+    <!-- Edit Course Form (Hidden by default) -->
+    <div class="w3-container w3-padding-32" id="edit_course_form" style="display: none;">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Course Information</h3>
+        <form method="POST" action="/courses/edit" id="editCourseForm">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="course_code" id="edit_course_coursecode">
+          <label for="course_name">Course Name:</label>
+          <input class="w3-input w3-border" type="text" name="course_name" id="edit_course_coursename" placeholder="Course Name" required>
+          <label for="course_code">College Code:</label>
+          <input class="w3-input w3-border" type="text" name="college_code" id="edit_course_collegecode" placeholder="College Code" required>
+          <button class="w3-button w3-black w3-section" type="submit">
+            <i class="fa fa-save"></i> Save Changes
+          </button>
+        </form>
+      </div>
+
+      <script>
+        function editCourse(coursecode, coursename, collegecode) {
+          document.getElementById('edit_course_coursecode').value = coursecode;  
+          document.getElementById('edit_course_coursename').value = coursename;
+          document.getElementById('edit_course_collegecode').value = collegecode;
+          document.getElementById('edit_course_form').style.display = 'block';
+        }
+      </script>
+    </div>
+{% endblock %}
 
