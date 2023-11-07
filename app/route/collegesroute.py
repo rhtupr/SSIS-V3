@@ -17,7 +17,7 @@ def add_college():
         print(collegecode, collegename)
         add_col(collegecode, collegename)
         return redirect('/colleges') 
-    return render_template('colleges.html')
+    return render_template('addcollege.html')
 
 @colleges_bp.route('/colleges/search', methods=['GET', 'POST'])
 def search_colleges():

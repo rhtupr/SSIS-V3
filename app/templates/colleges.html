@@ -1,23 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-- Colleges -->
-    <div class="w3-container w3-padding-32" id="contact">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-        <form method="POST" action="/colleges/add">
-            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
-            <input class="w3-input w3-border" type="text" name="collegecode" id="collegecode" placeholder="College Code" required>
-            <input class="w3-input w3-section w3-border" type="text" name="collegename" id="collegename" placeholder="College Name" required>
-            <button class="w3-button w3-black w3-section" type="submit">
-                <i class="fa fa-paper-plane"></i> ADD COLLEGE
-            </button>
-        </form>
-    </div>
-
-
     <!-- Colleges Section -->
     <div class="w3-container w3-padding-32" id="colleges">
         <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">College Information</h3>
-
+    <!-- Add Course Button -->
+    <button class="w3-button w3-black w3-section" onclick="showAddCollegeForm()">
+      <i class="fa fa-plus"></i> Add College
+    </button>
 
 <!-- Search Bar -->
 <form method="POST" action="/colleges/search">
@@ -72,6 +61,11 @@
       document.getElementById('edit_college_collegecode').value = collegecode;
       document.getElementById('edit_college_collegename').value = collegename;
       document.getElementById('edit_college_form').style.display = 'block';
+    }
+
+    function showAddCollegeForm() {
+      // Redirect to the add college page
+      window.location.href = '/colleges/add';
     }
   </script>
 </div>
