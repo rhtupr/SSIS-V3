@@ -1,30 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-  <!-- Students -->
-  <div class="w3-container w3-padding-32" id="contact">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
-    <form method="POST" action="/students/add">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
-      <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
-      <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>
-      <select class="w3-input w3-border" name="coursecode" id="coursecode" required>
-        <option value="" disabled selected>Coursecode</option>
-        {% for course in courses %}
-          <option value="{{course.coursecode}}">{{course.coursecode}}</option>
-        {% endfor %}
-      </select>
-      <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
-      <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>
-      <button class="w3-button w3-black w3-section" type="submit">
-        <i class="fa fa-paper-plane"></i> ADD STUDENT
-      </button>
-    </form>
-  </div>
-
   <!-- Student Section -->
   <div class="w3-container w3-padding-32" id="students">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Student Information</h3>
+    
+    <!-- Add Student Button -->
+    <button class="w3-button w3-black w3-section" onclick="showAddStudentForm()">
+      <i class="fa fa-plus"></i> Add Student
+    </button>
 
     <!-- Search Bar -->
     <form method="POST" action="/students/search">
@@ -91,7 +74,7 @@
       </select>
       <label for="year_level">Year Level:</label>
       <input class="w3-input w3-border" type="text" name="year_level" id="edit_student_yearlevel" placeholder="Year Level" required>
-      <label for "gender">Gender:</label>
+      <label for="gender">Gender:</label>
       <input class="w3-input w3-border" type="text" name="gender" id="edit_student_gender" placeholder="Gender" required>
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-save"></i> Save Changes
@@ -109,9 +92,13 @@
       document.getElementById('edit_student_gender').value = gender;
       document.getElementById('edit_student_form').style.display = 'block';
     }
+    
+    
+    function showAddStudentForm() {
+      // Redirect to the add student page
+      window.location.href = '/students/add';
+    }
   </script>
+  
 </div>
 {% endblock %}
-
-
-

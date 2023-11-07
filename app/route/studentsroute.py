@@ -7,11 +7,13 @@ students_bp = Blueprint ('students', __name__)
 @students_bp.route('/students/')
 def students():
     students = studentread()
-    courses = get_course()
-    return render_template('students.html', students=students, courses=courses)
+    courses = get_course()  # Fetch the list of courses from your data source
+    course_code = None  # Provide the selected course_code or set it based on some logic
+
+    return render_template('students.html', students=students, courses=courses, course_code=course_code)
 
 @students_bp.route('/students/add', methods=['GET', 'POST'])
-def add_student():
+def add_students():
     if request.method == 'POST':
         student_id = request.form['id']
         firstname = request.form['firstname']
@@ -19,10 +21,16 @@ def add_student():
         coursecode = request.form['coursecode']
         yearlevel = request.form['yearlevel']
         gender = request.form['gender']
-        print(student_id, firstname, lastname, coursecode, yearlevel, gender)
         add_stu(student_id, firstname, lastname, coursecode, yearlevel, gender)
-        return redirect('/students')
-    return render_template('students.html')
+        return redirect('/students')  # Redirect to the students page after adding a student
+
+    # Fetch the list of courses to populate the coursecode dropdown
+    courses = get_course()
+
+    return render_template('addstudents.html', courses=courses)
+
+
+
 
 @students_bp.route('/students/search', methods=['GET', 'POST'])
 def search_students():
