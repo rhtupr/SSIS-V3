@@ -38,10 +38,6 @@ def edit_college():
         return render_template('editcollege.html', college_code=collegecode, college_name=collegename)
 
 
-
-
-
-
 @colleges_bp.route('/colleges/search', methods=['GET', 'POST'])
 def search_colleges():
     colleges = []
