@@ -52,18 +52,23 @@ def remove_student(stud_id):
 def edit_student():
     if request.method == 'POST':
         student_id = request.form.get('student_id')
-        first_name = request.form.get('first_name').title()
-        last_name = request.form.get('last_name').title()
-        course_code = request.form.get('course_code').upper()
-        year_level = request.form.get('year_level')
-        gender = request.form.get('gender').capitalize()
-        update_student(student_id, first_name, last_name, course_code, year_level, gender)
+        new_first_name = request.form.get('first_name').title()
+        new_last_name = request.form.get('last_name').title()
+        new_course_code = request.form.get('course_code').upper()
+        new_year_level = request.form.get('year_level')
+        new_gender = request.form.get('gender').capitalize()
+        update_student(student_id, new_first_name, new_last_name, new_course_code, new_year_level, new_gender)
         return redirect('/students')
-
     else:
-        student_id = request.args.get('student_id')  # Retrieve student_id from the query parameters
-        student = request.args.get('student_id')  # Replace this with your actual function to fetch the student data
-        courses = get_course()  # Fetch the list of courses for dropdown
+        student_id = request.args.get('student_id')
+        existing_student = get_existing_student(student_id)
 
-        return render_template('editstudent.html', student=student, courses=courses)
-
+        if existing_student:
+            first_name = existing_student['firstname']
+            last_name = existing_student['lastname']
+            course_code = existing_student['coursecode']
+            year_level = existing_student['yearlevel']
+            gender = existing_student['gender']
+            return render_template('editstudent.html', student_id=student_id, first_name=first_name, last_name=last_name, course_code=course_code, year_level=year_level, gender=gender)
+        else:
+            return render_template('error.html', message="Student not found")

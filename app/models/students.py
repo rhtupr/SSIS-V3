@@ -36,6 +36,8 @@ def update_student(student_id, first_name, last_name, course_code, year_level, g
     cursor.execute(update_query, (first_name, last_name, course_code, year_level, gender, student_id))
     mysql.connection.commit()
     cursor.close()
+    print(f"Student {student_id} updated with new data.")
+
 
 def get_course():
     cursor = mysql.connection.cursor(dictionary=True)
@@ -44,4 +46,11 @@ def get_course():
     result = cursor.fetchall()
     cursor.close()
     return result
-        
+ 
+def get_existing_student(student_id):
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT firstname, lastname, coursecode, yearlevel, gender FROM students WHERE id = %s"
+    cursor.execute(query, (student_id,))
+    existing_student= cursor.fetchone()
+    cursor.close()
+    return existing_student     

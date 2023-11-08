@@ -57,8 +57,14 @@
 
 
   <script>
-    function editStudent(studentId, firstname, lastname, coursecode, yearlevel, gender) {
-      window.location.href = '/students/edit?student_id=' + studentId +
+    function editStudent(student_id, firstname, lastname, coursecode, yearlevel, gender) {
+      console.log('Edit button clicked');
+      console.log('First Name :', firstname);
+      console.log('Last Name:', lastname);
+      console.log('Course Code:', coursecode);
+      console.log('Year Level:', yearlevel);
+      console.log('Gender:', gender);
+      window.location.href = '/students/edit?student_id=' + student_id +
                    '&first_name=' + firstname +
                    '&last_name=' + lastname +
                    '&course_code=' + coursecode +
@@ -67,12 +73,11 @@
     }
 
     function submitForm() {
-      console.log('Form submission triggered');
-      // Reference the form by its ID
-      var form = document.getElementById('editStudentForm');
-      // Submit the form
-      form.submit();
-  }
+        // Reference the form by its ID
+        var form = document.getElementById('editStudentForm');
+        // Submit the form
+        form.submit();
+    }
     
       function showAddStudentForm() {
         // Redirect to the add student page
