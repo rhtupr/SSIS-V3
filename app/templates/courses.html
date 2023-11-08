@@ -58,11 +58,10 @@
             console.log('Course Name:', coursename);
             console.log('College Code:', collegecode);
             // Redirect to the editcourse.html page with the appropriate query parameters
-            window.location.href = '/courses/edit?coursecode=' + coursecode + '&coursename=' + coursename;
+            window.location.href = '/courses/edit?coursecode=' + coursecode + '&coursename=' + coursename, '&collegecode' + collegecode;
         }
     
         function submitForm() {
-            console.log('Form submission triggered');
             // Reference the form by its ID
             var form = document.getElementById('editCourseForm');
             // Submit the form
@@ -74,7 +73,6 @@
             window.location.href = '/courses/add';
           }
         </script>
-        
       </div>
   {% endblock %}
 
