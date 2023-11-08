@@ -31,12 +31,13 @@ def delete_course(course_code):
     mysql.connection.commit()
     cursor.close()
     
-def update_course(coursecode, coursename, collegecode):
+def update_course(course_code, new_course_name, new_college_code):
     cursor = mysql.connection.cursor()
     update_query = "UPDATE courses SET coursename = %s, collegecode = %s WHERE coursecode = %s"
-    cursor.execute(update_query, (coursename, collegecode, coursecode))
+    cursor.execute(update_query, (new_course_name, new_college_code, course_code))
     mysql.connection.commit()
     cursor.close()
+
 
 def get_college():
     cursor = mysql.connection.cursor(dictionary=True)
@@ -45,3 +46,11 @@ def get_college():
     result = cursor.fetchall()
     cursor.close()
     return result
+
+def get_existing_course(coursecode):
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT coursename, collegecode FROM courses WHERE coursecode = %s"
+    cursor.execute(query, (coursecode,))
+    existing_course = cursor.fetchone()
+    cursor.close()
+    return existing_course

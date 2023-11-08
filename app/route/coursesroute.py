@@ -23,7 +23,32 @@ def add_course():
         colleges = get_college()  # Get the college data here
         return render_template('addcourse.html', colleges=colleges)  # Pass 'colleges' to the template
 
-    
+@courses_bp.route('/courses/edit', methods=['GET', 'POST'])
+def edit_course():
+    if request.method == 'POST':
+        course_code = request.form.get('course_code')
+        new_course_name = request.form.get('course_name')
+        new_college_code = request.form.get('college_code').upper()
+        
+        # Update the course information in the database
+        update_course(course_code, new_course_name, new_college_code)
+
+        # Redirect to the courses page or any other desired page
+        return redirect('/courses')
+
+    # Handle the GET request for displaying the edit form
+    else:
+        coursecode = request.args.get('coursecode')
+        existing_course = get_existing_course(coursecode)
+
+        if existing_course:
+            course_name = existing_course['coursename']
+            college_code = existing_course['collegecode']
+            colleges = get_college()
+            return render_template('editcourse.html', course_code=coursecode, course_name=course_name, college_code=college_code, colleges=colleges)
+        else:
+            return render_template('error.html', message="Course not found")
+ 
 
 
 @courses_bp.route('/courses/search', methods=['GET', 'POST'])
@@ -41,11 +66,3 @@ def remove_course(coursecode):
         delete_course(coursecode)
         return jsonify({'success': True})
 
-@courses_bp.route('/courses/edit', methods=['POST'])
-def edit_course():
-    if request.method == 'POST':
-        coursecode = request.form.get('course_code')
-        coursename = request.form.get('course_name')
-        collegecode = request.form.get('college_code').upper()
-        update_course(coursecode, coursename, collegecode)
-        return redirect('/courses/')
