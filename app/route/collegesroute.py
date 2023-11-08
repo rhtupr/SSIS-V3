@@ -19,6 +19,29 @@ def add_college():
         return redirect('/colleges') 
     return render_template('addcollege.html')
 
+@colleges_bp.route('/colleges/editcollege', methods=['GET', 'POST'])
+def edit_college():
+    if request.method == 'POST':
+        # Handle the POST request to update the college information in your database
+        college_code = request.form.get('college_code')
+        new_college_name = request.form.get('college_name')
+        
+        # Update the college information in the database
+        update_college(college_code, new_college_name)  # Call the update_college function
+
+        # Redirect to the colleges page
+        return redirect('/colleges')
+    else:
+        # Handle the GET request (render the edit form)
+        collegecode = request.args.get('collegecode')
+        collegename = request.args.get('collegename')
+        return render_template('editcollege.html', college_code=collegecode, college_name=collegename)
+
+
+
+
+
+
 @colleges_bp.route('/colleges/search', methods=['GET', 'POST'])
 def search_colleges():
     colleges = []
@@ -35,12 +58,5 @@ def remove_college(collegecode):
         delete_college(collegecode)
         return jsonify({'success': True})
     
-@colleges_bp.route('/colleges/edit', methods=['POST'])
-def edit_college():
-    if request.method == 'POST':
-        college_code = request.form.get('college_code').upper()
-        college_name = request.form.get('college_name')
-        update_college(college_code, college_name)
-        return redirect('/colleges/')
-    
+
 

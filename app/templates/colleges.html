@@ -42,32 +42,33 @@
                 </table>
             </div>
 
-  <!-- Edit College Form (Hidden by default) -->
-  <div class="w3-container w3-padding-32" id="edit_college_form" style="display: none;">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit College Information</h3>
-    <form method="POST" action="/colleges/edit" id="editCollegeForm">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <input type="hidden" name="college_code" id="edit_college_collegecode">
-      <label for="college_name">College Name</label>
-      <input class="w3-input w3-border" type="text" name="college_name" id="edit_college_collegename" placeholder="College Name" required>
-      <button class="w3-button w3-black w3-section" type="submit">
-        <i class="fa fa-save"></i> Save Changes
-      </button>
-    </form>
-  </div>
 
-  <script>
-    function editCollege(collegecode, collegename) {
-      document.getElementById('edit_college_collegecode').value = collegecode;
-      document.getElementById('edit_college_collegename').value = collegename;
-      document.getElementById('edit_college_form').style.display = 'block';
-    }
+
+<script>
+  function editCollege(collegecode, collegename) {
+    // Redirect to the editcollege.html page with the appropriate query parameters
+    window.location.href = '/colleges/editcollege?collegecode=' + collegecode + '&collegename=' + collegename;
+}
+
+function submitForm() {
+  // Reference the form by its ID
+  var form = document.getElementById('editCollegeForm');
+  // Submit the form
+  form.submit();
+}
+
+
+function showAddCollegeForm() {
+    // Redirect to the add college page
+    window.location.href = '/colleges/add';
+}
 
     function showAddCollegeForm() {
-      // Redirect to the add college page
-      window.location.href = '/colleges/add';
+        // Redirect to the add college page
+        window.location.href = '/colleges/add';
     }
-  </script>
+</script>
+
 </div>
 
 {% endblock %}
