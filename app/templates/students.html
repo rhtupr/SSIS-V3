@@ -65,14 +65,15 @@
                    '&year_level=' + yearlevel +
                    '&gender=' + gender;
     }
-    
+
     function submitForm() {
-        // Reference the form by its ID
-        var form = document.getElementById('editStudentForm');
-        // Submit the form
-        form.submit();
-    }
-      
+      console.log('Form submission triggered');
+      // Reference the form by its ID
+      var form = document.getElementById('editStudentForm');
+      // Submit the form
+      form.submit();
+  }
+    
       function showAddStudentForm() {
         // Redirect to the add student page
         window.location.href = '/students/add';
