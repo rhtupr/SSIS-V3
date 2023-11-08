@@ -48,16 +48,22 @@ def remove_student(stud_id):
         delete_student(stud_id)
         return jsonify({'success': True})
 
-@students_bp.route('/students/edit', methods=['POST'])
+@students_bp.route('/students/edit', methods=['GET', 'POST'])
 def edit_student():
     if request.method == 'POST':
-        student_id = request.form.get('student_id')  # Get the student_id from the form
+        student_id = request.form.get('student_id')
         first_name = request.form.get('first_name').title()
         last_name = request.form.get('last_name').title()
         course_code = request.form.get('course_code').upper()
         year_level = request.form.get('year_level')
         gender = request.form.get('gender').capitalize()
         update_student(student_id, first_name, last_name, course_code, year_level, gender)
-        return redirect('/students/')
-    
+        return redirect('/students')
+
+    else:
+        student_id = request.args.get('student_id')  # Retrieve student_id from the query parameters
+        student = request.args.get('student_id')  # Replace this with your actual function to fetch the student data
+        courses = get_course()  # Fetch the list of courses for dropdown
+
+        return render_template('editstudent.html', student=student, courses=courses)
 

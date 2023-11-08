@@ -22,82 +22,61 @@
       </div>
     </form>
 
-    <!-- Student Table -->
-    <table class="w3-table w3-striped">
-      <tr>
-        <th>Student ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Course</th>
-        <th>Year</th>
-        <th>Gender</th>
-        <th>Actions</th>
-      </tr>
-      {% for student in students %}
-      <tr id="student_row_{{ student.id }}">
-        <td>{{ student.id }}</td>
-        <td>{{ student.firstname }}</td>
-        <td>{{ student.lastname }}</td>
-        <td>{{ student.coursecode }}</td>
-        <td>{{ student.yearlevel }}</td>
-        <td>{{ student.gender }}</td>
-        <td>
-          <button type="button" id="editStudent_{{ student.id }}" onclick="editStudent('{{ student.id }}', '{{ student.firstname }}', '{{ student.lastname }}', '{{ student.coursecode }}', '{{ student.yearlevel }}', '{{ student.gender }}')">
-            <i class="fa fa-edit fa-lg" title="Edit"></i>
-          </button>
-          <button type="button" id="deleteStudent_{{ student.id }}" student-id="{{ student.id }}" csrf-token="{{ csrf_token() }}" onclick="deleteStudent(this)">
-            <i class="fa fa-trash fa-lg" title="Delete"></i>
-          </button>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+  <!-- Student Table -->
+  <table class="w3-table w3-striped">
+    <tr>
+      <th>Student ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Course</th>
+      <th>Year</th>
+      <th>Gender</th>
+      <th>Actions</th>
+    </tr>
+    {% for student in students %}
+    <tr id="student_row_{{ student.id }}">
+      <td>{{ student.id }}</td>
+      <td>{{ student.firstname }}</td>
+      <td>{{ student.lastname }}</td>
+      <td>{{ student.coursecode }}</td>
+      <td>{{ student.yearlevel }}</td>
+      <td>{{ student.gender }}</td>
+      <td>
+        <button type="button" id="editStudent_{{ student.id }}" onclick="editStudent('{{ student.id }}', '{{ student.firstname }}', '{{ student.lastname }}', '{{ student.coursecode }}', '{{ student.yearlevel }}', '{{ student.gender }}')">
+          <i class="fa fa-edit fa-lg" title="Edit"></i>
+        </button>
+        <button type="button" id="deleteStudent_{{ student.id }}" student-id="{{ student.id }}" csrf-token="{{ csrf_token() }}" onclick="deleteStudent(this)">
+          <i class="fa fa-trash fa-lg" title="Delete"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
   </div>
 
-  <!-- Edit Student Form (Hidden by default) -->
-  <div class="w3-container w3-padding-32" id="edit_student_form" style="display: none;">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Student Information</h3>
-    <form method="POST" action="/students/edit" id="editStudentForm">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <input type="hidden" name="student_id" id="edit_student_id">
-      <label for="first_name">First Name:</label>
-      <input class="w3-input w3-border" type="text" name="first_name" id="edit_student_firstname" placeholder="First Name" required>
-      <label for="last_name">Last Name:</label>
-      <input class="w3-input w3-border" type="text" name="last_name" id="edit_student_lastname" placeholder="Last Name" required>
-      <label for="course_code">Course Code:</label>
-      <select class="w3-input w3-border" name="course_code" id="edit_student_coursecode" required>
-        {% for course in courses %}
-          {% if course.coursecode != course_code %}
-            <option value="{{course.coursecode}}">{{course.coursecode}}</option>
-          {% endif %}
-        {% endfor %}
-      </select>
-      <label for="year_level">Year Level:</label>
-      <input class="w3-input w3-border" type="text" name="year_level" id="edit_student_yearlevel" placeholder="Year Level" required>
-      <label for="gender">Gender:</label>
-      <input class="w3-input w3-border" type="text" name="gender" id="edit_student_gender" placeholder="Gender" required>
-      <button class="w3-button w3-black w3-section" type="submit">
-        <i class="fa fa-save"></i> Save Changes
-      </button>
-    </form>
-  </div>
+
 
   <script>
     function editStudent(studentId, firstname, lastname, coursecode, yearlevel, gender) {
-      document.getElementById('edit_student_id').value = studentId;
-      document.getElementById('edit_student_firstname').value = firstname;
-      document.getElementById('edit_student_lastname').value = lastname;
-      document.getElementById('edit_student_coursecode').value = coursecode;
-      document.getElementById('edit_student_yearlevel').value = yearlevel;
-      document.getElementById('edit_student_gender').value = gender;
-      document.getElementById('edit_student_form').style.display = 'block';
+      window.location.href = '/students/edit?student_id=' + studentId +
+                   '&first_name=' + firstname +
+                   '&last_name=' + lastname +
+                   '&course_code=' + coursecode +
+                   '&year_level=' + yearlevel +
+                   '&gender=' + gender;
     }
     
-    
-    function showAddStudentForm() {
-      // Redirect to the add student page
-      window.location.href = '/students/add';
+    function submitForm() {
+        // Reference the form by its ID
+        var form = document.getElementById('editStudentForm');
+        // Submit the form
+        form.submit();
     }
+      
+      function showAddStudentForm() {
+        // Redirect to the add student page
+        window.location.href = '/students/add';
+      }
   </script>
   
 </div>
