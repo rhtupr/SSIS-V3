@@ -9,15 +9,23 @@ def college():
     colleges = collegeread()
     return render_template('colleges.html', colleges=colleges)
 
+
+
 @colleges_bp.route('/colleges/add', methods=['GET', 'POST'])
 def add_college():
     if request.method == 'POST':
-        collegecode = request.form['collegecode']
-        collegename = request.form['collegename']
-        print(collegecode, collegename)
-        add_col(collegecode, collegename)
-        return redirect('/colleges') 
+        college_code = request.form['collegecode']
+        college_name = request.form['collegename']
+        if check(college_code):
+            flash('College Code already exists!', 'error')
+        elif len(college_code)> 20:
+            flash('College Code too long!', 'error')
+        else:
+            insert_college(college_code, college_name)
+            flash('College added successfully!', 'success')
+            return redirect('/colleges') 
     return render_template('addcollege.html')
+
 
 @colleges_bp.route('/colleges/editcollege', methods=['GET', 'POST'])
 def edit_college():

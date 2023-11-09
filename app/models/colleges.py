@@ -37,4 +37,18 @@ def update_college(collegecode, collegename):
     mysql.connection.commit()
     cursor.close()
 
+def check(college_code):
+    cursor = mysql.connection.cursor()
+    query = "SELECT collegecode FROM colleges WHERE collegecode = %s"
+    cursor.execute(query, (college_code,))
+    result = cursor.fetchone()
+    cursor.close()
+    if result:
+        return True
+
+def insert_college(college_code, college_name):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO colleges (collegecode, collegename) VALUES (%s, %s)", (college_code, college_name))
+    mysql.connection.commit()
+    cursor.close()
         

@@ -14,8 +14,19 @@
           <option value="{{course.coursecode}}">{{course.coursecode}}</option>
         {% endfor %}
       </select>
-      <input class="w3-input w3-section w3-border" type="text" name="yearlevel" id="yearlevel" placeholder="Yearlevel" required>
-      <input class="w3-input w3-section w3-border" type="text" name="gender" id="gender" placeholder="Gender" required>
+      <select class="w3-input w3-border" name="yearlevel" id="yearlevel" required>
+        <option value="" disabled selected>Yearlevel</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>      
+      <select class="w3-input w3-border" name="gender" id="gender" required>
+        <option value="" disabled selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>      
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> ADD STUDENT
       </button>
