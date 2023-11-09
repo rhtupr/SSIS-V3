@@ -171,7 +171,23 @@
     margin-right: 10px;
 }
 
+.flashes {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
+.flash {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.error {
+    color: #ff0000;
+    background-color: #ffcccc;
+}
 
 
 

@@ -53,4 +53,27 @@ def get_existing_student(student_id):
     cursor.execute(query, (student_id,))
     existing_student= cursor.fetchone()
     cursor.close()
-    return existing_student     
+    return existing_student  
+
+def get_course_codes():
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT coursecode FROM courses"
+    cursor.execute(query)
+    course_code = cursor.fetchall()
+    cursor.close()
+    return course_code
+
+def check(student_id):
+    cursor = mysql.connection.cursor()
+    query = "SELECT id FROM students WHERE id = %s"
+    cursor.execute(query, (student_id,))
+    result = cursor.fetchone()
+    cursor.close()
+    if result:
+        return True
+    
+def insert_student(student_id, first_name, last_name, course_code, year_level, gender):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO students (id, firstname, lastname, coursecode, yearlevel, gender) VALUES (%s, %s, %s, %s, %s, %s)", (student_id, first_name, last_name, course_code, year_level, gender))
+    mysql.connection.commit()
+    cursor.close()

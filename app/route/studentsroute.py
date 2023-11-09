@@ -1,6 +1,9 @@
 from flask import * 
 from app.models.students import *
 from flask_wtf import *
+from flask import render_template, redirect, flash, request, session
+import re
+
 
 students_bp = Blueprint ('students', __name__)
 
@@ -12,23 +15,28 @@ def students():
 
     return render_template('students.html', students=students, courses=courses, course_code=course_code)
 
+
+
 @students_bp.route('/students/add', methods=['GET', 'POST'])
 def add_students():
     if request.method == 'POST':
         student_id = request.form['id']
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        coursecode = request.form['coursecode']
-        yearlevel = request.form['yearlevel']
-        gender = request.form['gender']
-        add_stu(student_id, firstname, lastname, coursecode, yearlevel, gender)
-        return redirect('/students')  # Redirect to the students page after adding a student
-
-    # Fetch the list of courses to populate the coursecode dropdown
-    courses = get_course()
-
+        first_name = request.form['firstname'].title()
+        last_name = request.form['lastname'].title()
+        course_code = request.form['coursecode'].upper()
+        year_level = request.form['yearlevel']
+        gender = request.form['gender'].capitalize()
+        if not re.match(r'^\d{4}-\d{4}$', student_id):
+            flash('Invalid Student ID format. Follow YYYY-NNNN format.', 'error')
+        elif check(student_id):
+            flash('Student ID already exists!', 'error')
+        elif len(student_id)> 10:
+            flash('Student ID too long!', 'error')
+        else:
+            insert_student(student_id, first_name, last_name, course_code, year_level, gender)
+            return redirect('/students/') 
+    courses = get_course_codes()
     return render_template('addstudents.html', courses=courses)
-
 
 
 
