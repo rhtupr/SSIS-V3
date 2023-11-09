@@ -10,18 +10,27 @@ def courses():
     colleges = get_college()
     return render_template('courses.html', courses=courses, colleges=colleges)
 
+
 @courses_bp.route('/courses/add', methods=['GET', 'POST'])
 def add_course():
     if request.method == 'POST':
-        coursecode = request.form['coursecode']
-        coursename = request.form['coursename']
-        collegecode = request.form['collegecode']
-        add_cou(coursecode, coursename, collegecode)
-        return redirect('/courses')  # Redirect after processing the form data
-    else:
-        # Handle the GET request to display the form
-        colleges = get_college()  # Get the college data here
-        return render_template('addcourse.html', colleges=colleges)  # Pass 'colleges' to the template
+        course_code = request.form['coursecode']
+        course_name = request.form['coursename']
+        college_code = request.form['collegecode']
+        if check(course_code):
+            flash('Course Code already exists!', 'error')
+        elif len(course_code)> 20:
+            flash('Course Code too long!', 'error')
+        else:
+            insert_course(course_code, course_name, college_code)
+            return redirect('/courses') 
+    colleges = get_college_codes()
+    return render_template('addcourse.html', colleges=colleges)
+
+
+
+
+
 
 @courses_bp.route('/courses/edit', methods=['GET', 'POST'])
 def edit_course():

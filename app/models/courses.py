@@ -54,3 +54,26 @@ def get_existing_course(coursecode):
     existing_course = cursor.fetchone()
     cursor.close()
     return existing_course
+
+def check(course_code):
+    cursor = mysql.connection.cursor()
+    query = "SELECT coursecode FROM courses WHERE coursecode = %s"
+    cursor.execute(query, (course_code,))
+    result = cursor.fetchone()
+    cursor.close()
+    if result:
+        return True
+
+def insert_course(course_code, course_name, college_code):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO courses (coursecode, coursename, collegecode) VALUES (%s, %s, %s)", (course_code, course_name, college_code))
+    mysql.connection.commit()
+    cursor.close()
+    
+def get_college_codes():
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT collegecode FROM colleges"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
