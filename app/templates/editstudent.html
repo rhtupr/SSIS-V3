@@ -17,22 +17,21 @@
         <option value="{{ course.coursecode }}">{{ course.coursecode }}</option>
       {% endfor %}
     </select>
-  </select>
-  <select class="w3-input w3-border" name="yearlevel" id="yearlevel" required>
-    <option value="" disabled selected>Yearlevel</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-  </select>      
-  <input class="w3-input w3-border" type="text" name="year_level" id="edit_student_yearlevel" placeholder="Year Level" required value="{{ year_level }}">
-  <select class="w3-input w3-border" name="gender" id="gender" required>
-    <option value="" disabled selected>Gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-    <option value="other">Other</option>
-  </select>         
-  <input class="w3-input w3-border" type="text" name="gender" id="edit_student_gender" placeholder="Gender" required value="{{ gender }}">
+    <label for="yearlevel">Year Level:</label>
+    <select class="w3-input w3-border" name="year_level" id="yearlevel" required>
+      <option value="" disabled selected>Year Level</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <label for="gender">Gender:</label>
+    <select class="w3-input w3-border" name="gender" id="gender" required>
+      <option value="" disabled selected>Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
     <button class="w3-button w3-black w3-section" type="submit">
       <i class="fa fa-save"></i> Save Changes
     </button>

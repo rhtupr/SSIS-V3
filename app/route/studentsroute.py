@@ -30,8 +30,6 @@ def add_students():
             flash('Invalid Student ID format. Follow YYYY-NNNN format.', 'error')
         elif check(student_id):
             flash('Student ID already exists!', 'error')
-        elif len(student_id)> 10:
-            flash('Student ID too long!', 'error')
         else:
             insert_student(student_id, first_name, last_name, course_code, year_level, gender)
             return redirect('/students/') 
@@ -77,6 +75,9 @@ def edit_student():
             course_code = existing_student['coursecode']
             year_level = existing_student['yearlevel']
             gender = existing_student['gender']
-            return render_template('editstudent.html', student_id=student_id, first_name=first_name, last_name=last_name, course_code=course_code, year_level=year_level, gender=gender)
+
+            courses = get_course_codes()  # Fetch the course codes
+
+            return render_template('editstudent.html', student_id=student_id, first_name=first_name, last_name=last_name, course_code=course_code, year_level=year_level, gender=gender, courses=courses)
         else:
             return render_template('error.html', message="Student not found")

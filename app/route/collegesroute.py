@@ -22,7 +22,6 @@ def add_college():
             flash('College Code too long!', 'error')
         else:
             insert_college(college_code, college_name)
-            flash('College added successfully!', 'success')
             return redirect('/colleges') 
     return render_template('addcollege.html')
 

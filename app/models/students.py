@@ -31,12 +31,14 @@ def delete_student(stud_id):
     cursor.close()
 
 def update_student(student_id, first_name, last_name, course_code, year_level, gender):
+    courses = get_course_codes()  # Fetch the course codes
     cursor = mysql.connection.cursor()
     update_query = "UPDATE students SET firstname = %s, lastname = %s, coursecode = %s, yearlevel = %s, gender = %s WHERE id = %s"
     cursor.execute(update_query, (first_name, last_name, course_code, year_level, gender, student_id))
     mysql.connection.commit()
     cursor.close()
     print(f"Student {student_id} updated with new data.")
+
 
 
 def get_course():
