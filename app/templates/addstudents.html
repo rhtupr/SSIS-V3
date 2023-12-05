@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="w3-container" id="contact">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
         <form method="POST" action="/students/add">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <!-- Image Upload Section -->
+            <div id="student_image_container" class="form-group student_image_container">
+                <img id="student_info_image" src="{{ "https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" }}" alt="{{ id }}">
+            </div>
+            <div class="form-group text-center">
+                <input id="image_url" type="text" name="image_url" value="https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" hidden>
+                <input type="file" id="file-input" hidden>
+                <button id="file-button" type="button" class="btn btn-primary col-md-6 mx-auto" style="margin-top: 10px;">Upload Image</button>
+                <p>Accepted Image Type: JPG, JPEG, PNG; Maximum Size: 1MB</p>
+            </div>
+            
+            <!-- Student Details Section -->
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Fill in the details.</h3>
             <input class="w3-input w3-border" type="text" name="id" id="id" placeholder="ID" required>
             <input class="w3-input w3-section w3-border" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
             <input class="w3-input w3-section w3-border" type="text" name="lastname" id="lastname" placeholder="Lastname" required>
@@ -27,8 +40,8 @@
                 <option value="other">Other</option>
             </select><br>            
             <button class="w3-button w3-black w3-section" type="submit">
-              <i class="fa fa-paper-plane"></i> ADD STUDENT
+                <i class="fa fa-paper-plane"></i> ADD STUDENT
             </button>
-      </form>
-  </div>
+        </form>
+    </div>
 {% endblock %}

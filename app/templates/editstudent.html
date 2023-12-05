@@ -1,40 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- Edit Student Form -->
 <div class="w3-container w3-padding-32" id="edit_student_form">
-  <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Student Information</h3>
   <form method="POST" action="/students/edit">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input type="hidden" name="student_id" value="{{ student_id }}">
-    <label for="first_name">First Name:</label>
-    <input class="w3-input w3-border" type="text" name="first_name" id="edit_student_firstname" placeholder="First Name" required value="{{ first_name }}">
-    <label for="last_name">Last Name:</label>
-    <input class="w3-input w3-border" type="text" name="last_name" id="edit_student_lastname" placeholder="Last Name" required value="{{ last_name }}">
-    <label for="course_code">Course Code:</label>
-    <select class="w3-input w3-border" name="course_code" id="edit_student_coursecode" required>
-      <option value="{{ course_code }}">{{ course_code }}</option>
-      {% for course in courses %}
-        <option value="{{ course.coursecode }}">{{ course.coursecode }}</option>
-      {% endfor %}
-    </select>
-    <label for="yearlevel">Year Level:</label>
-    <select class="w3-input w3-border" name="year_level" id="yearlevel" required>
-      <option value="" disabled selected>Year Level</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select>
-    <label for="gender">Gender:</label>
-    <select class="w3-input w3-border" name="gender" id="gender" required>
-      <option value="" disabled selected>Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-    <button class="w3-button w3-black w3-section" type="submit">
-      <i class="fa fa-save"></i> Save Changes
-    </button>
-  </form>
-</div>
+
+    <!-- Upload Image Section -->
+    <div id="student_image_container" class="form-group student_image_container">
+        <img id="student_info_image" src="{{ image_url or "https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" }}" alt="{{ id }}">
+    </div>
+    <div class="form-group  text-center">
+        <input id="image_url" type="text" name="image_url" value="{{ image_url or "https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" }}" hidden>
+        <input type="file" id="file-input" hidden>
+        <button id="file-button" type="button" class="btn btn-primary col-md-6 mx-auto" style="margin-top: 10px;">Upload Image</button>
+        <p> Accepted Image Type: JPG, JPEG, PNG; Maximum Size: 1MB</p>
+    </div>
+
+    <!-- Student Details Section -->
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Student Information</h3>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="student_id" value="{{ student_id }}">
+      <label for="first_name">First Name:</label>
+      <input class="w3-input w3-border" type="text" name="first_name" id="edit_student_firstname" placeholder="First Name" required value="{{ first_name }}">
+      <label for="last_name">Last Name:</label>
+      <input class="w3-input w3-border" type="text" name="last_name" id="edit_student_lastname" placeholder="Last Name" required value="{{ last_name }}">
+      <label for="course_code">Course Code:</label>
+      <select class="w3-input w3-border" name="course_code" id="edit_student_coursecode" required>
+        <option value="{{ course_code }}">{{ course_code }}</option>
+        {% for course in courses %}
+          <option value="{{ course.coursecode }}">{{ course.coursecode }}</option>
+        {% endfor %}
+      </select>
+      <label for="yearlevel">Year Level:</label>
+      <select class="w3-input w3-border" name="year_level" id="yearlevel" required>
+        <option value="" disabled selected>Year Level</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+      <label for="gender">Gender:</label>
+      <select class="w3-input w3-border" name="gender" id="gender" required>
+        <option value="" disabled selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-save"></i> Save Changes
+      </button>
+    </form>
+  </div>
 {% endblock %}

@@ -25,6 +25,7 @@
   <!-- Student Table -->
   <table class="w3-table w3-striped">
     <tr>
+      <th>Profile</th>  
       <th>Student ID</th>
       <th>First Name</th>
       <th>Last Name</th>
@@ -35,6 +36,7 @@
     </tr>
     {% for student in students %}
     <tr id="student_row_{{ student.id }}">
+      <td> <a href="/view_student/{{student.id}}"> <img id="student_image" src="{{ student.image_url or "https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" }}" alt="{{ student.id }}"> </a> </td>
       <td>{{ student.id }}</td>
       <td>{{ student.firstname }}</td>
       <td>{{ student.lastname }}</td>

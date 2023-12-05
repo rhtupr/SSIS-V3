@@ -79,3 +79,11 @@ def insert_student(student_id, first_name, last_name, course_code, year_level, g
     cursor.execute("INSERT INTO students (id, firstname, lastname, coursecode, yearlevel, gender) VALUES (%s, %s, %s, %s, %s, %s)", (student_id, first_name, last_name, course_code, year_level, gender))
     mysql.connection.commit()
     cursor.close()
+    
+def read_student(student_id):
+    cursor = mysql.connection.cursor(dictionary=True)
+    query = "SELECT students.id, students.firstname, students.lastname, students.yearlevel, students.gender, students.image_url, courses.coursecode, courses.coursename, colleges.collegecode, colleges.collegename FROM students JOIN courses ON students.coursecode = courses.coursecode JOIN colleges ON courses.collegecode = colleges.collegecode WHERE students.id = %s"
+    cursor.execute(query, (student_id,))
+    result = cursor.fetchone()
+    cursor.close()
+    return result
