@@ -23,6 +23,7 @@ def add_course():
             flash('Course Code too long!', 'error')
         else:
             insert_course(course_code, course_name, college_code)
+            flash('Course added successfully!', 'success')
             return redirect('/courses') 
     colleges = get_college_codes()
     return render_template('addcourse.html', colleges=colleges)
@@ -41,6 +42,7 @@ def edit_course():
         
         # Update the course information in the database
         update_course(course_code, new_course_name, new_college_code)
+        flash('Course edited successfully!', 'success')
 
         # Redirect to the courses page or any other desired page
         return redirect('/courses')
@@ -73,5 +75,6 @@ def search_courses():
 def remove_course(coursecode):
     if request.method == 'DELETE':
         delete_course(coursecode)
+        flash('Course deleted successfully!', 'success')
         return jsonify({'success': True})
 

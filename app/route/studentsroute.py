@@ -1,7 +1,6 @@
 from flask import * 
 from app.models.students import *
 from flask_wtf import *
-from flask import render_template, redirect, flash, request, session
 import re
 
 
@@ -27,11 +26,14 @@ def add_students():
         year_level = request.form['yearlevel']
         gender = request.form['gender'].capitalize()
         if not re.match(r'^\d{4}-\d{4}$', student_id):
+            print("Invalid Student ID format.")
             flash('Invalid Student ID format. Follow YYYY-NNNN format.', 'error')
         elif check(student_id):
+            print("Student ID already exists.")
             flash('Student ID already exists!', 'error')
         else:
             insert_student(student_id, first_name, last_name, course_code, year_level, gender)
+            flash('Student added successfully!', 'success')
             return redirect('/students/') 
     courses = get_course_codes()
     return render_template('addstudents.html', courses=courses)
@@ -52,6 +54,7 @@ def remove_student(stud_id):
     if request.method == 'DELETE':
         print(stud_id)
         delete_student(stud_id)
+        flash('Student deleted successfully!', 'success')
         return jsonify({'success': True})
 
 @students_bp.route('/students/edit', methods=['GET', 'POST'])
@@ -64,6 +67,7 @@ def edit_student():
         new_year_level = request.form.get('year_level')
         new_gender = request.form.get('gender').capitalize()
         update_student(student_id, new_first_name, new_last_name, new_course_code, new_year_level, new_gender)
+        flash('Student edited successfully!', 'success')
         return redirect('/students')
     else:
         student_id = request.args.get('student_id')

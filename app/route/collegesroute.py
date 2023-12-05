@@ -22,6 +22,7 @@ def add_college():
             flash('College Code too long!', 'error')
         else:
             insert_college(college_code, college_name)
+            flash('College added successfully!', 'success')
             return redirect('/colleges') 
     return render_template('addcollege.html')
 
@@ -35,7 +36,8 @@ def edit_college():
         
         # Update the college information in the database
         update_college(college_code, new_college_name)  # Call the update_college function
-
+        flash('College edited successfully!', 'success')
+        
         # Redirect to the colleges page
         return redirect('/colleges')
     else:
@@ -59,6 +61,7 @@ def remove_college(collegecode):
     if request.method == 'DELETE':
         print(collegecode)
         delete_college(collegecode)
+        flash('College deleted successfully!', 'success')
         return jsonify({'success': True})
     
 
