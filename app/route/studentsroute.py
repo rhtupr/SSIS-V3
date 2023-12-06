@@ -28,6 +28,7 @@ def add_students():
         course_code = request.form['coursecode'].upper()
         year_level = request.form['yearlevel']
         gender = request.form['gender'].capitalize()
+        image_url = request.form['image_url']
         if not re.match(r'^\d{4}-\d{4}$', student_id):
             print("Invalid Student ID format.")
             flash('Invalid Student ID format. Follow YYYY-NNNN format.', 'error')
@@ -35,7 +36,7 @@ def add_students():
             print("Student ID already exists.")
             flash('Student ID already exists!', 'error')
         else:
-            insert_student(student_id, first_name, last_name, course_code, year_level, gender)
+            insert_student(student_id, first_name, last_name, course_code, year_level, gender, image_url)
             flash('Student added successfully!', 'success')
             return redirect('/students/') 
     courses = get_course_codes()
@@ -69,7 +70,8 @@ def edit_student():
         new_course_code = request.form.get('course_code').upper()
         new_year_level = request.form.get('year_level')
         new_gender = request.form.get('gender').capitalize()
-        update_student(student_id, new_first_name, new_last_name, new_course_code, new_year_level, new_gender)
+        new_image_url = request.form.get('image_url')
+        update_student(student_id, new_first_name, new_last_name, new_course_code, new_year_level, new_gender, new_image_url)
         flash('Student edited successfully!', 'success')
         return redirect('/students')
     else:
@@ -82,10 +84,11 @@ def edit_student():
             course_code = existing_student['coursecode']
             year_level = existing_student['yearlevel']
             gender = existing_student['gender']
+            image_url = existing_student['image_url']
 
             courses = get_course_codes()  # Fetch the course codes
 
-            return render_template('editstudent.html', student_id=student_id, first_name=first_name, last_name=last_name, course_code=course_code, year_level=year_level, gender=gender, courses=courses)
+            return render_template('editstudent.html', student_id=student_id, first_name=first_name, last_name=last_name, course_code=course_code, year_level=year_level, gender=gender, image_url = image_url, courses=courses)
         else:
             return render_template('error.html', message="Student not found")
 
