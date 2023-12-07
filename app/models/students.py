@@ -4,7 +4,8 @@ mysql = MySQL()
 
 def studentread():
     cursor = mysql.connection.cursor(dictionary=True)
-    query = "SELECT * FROM students"
+    query = """ SELECT students.*, CONCAT(colleges.collegename, ' (', courses.collegecode, ')') AS collegecode FROM students
+    JOIN courses ON students.coursecode = courses.coursecode JOIN colleges ON courses.collegecode = colleges.collegecode"""    
     cursor.execute(query)
     students = cursor.fetchall()
     cursor.close()
@@ -13,10 +14,25 @@ def studentread():
 def find_students(student_search):
     cursor = mysql.connection.cursor(dictionary=True)
     search_query = "%" + student_search + "%"
-    cursor.execute("SELECT * FROM students WHERE id LIKE %s OR firstname LIKE %s OR lastname LIKE %s OR coursecode LIKE %s OR yearlevel LIKE %s OR gender LIKE %s", (search_query, search_query, search_query, search_query, search_query, search_query))
+    query = """
+        SELECT students.*, CONCAT(colleges.collegename, ' (', courses.collegecode, ')') AS collegecode
+        FROM students
+        JOIN courses ON students.coursecode = courses.coursecode
+        JOIN colleges ON courses.collegecode = colleges.collegecode
+        WHERE students.id LIKE %s
+            OR students.firstname LIKE %s
+            OR students.lastname LIKE %s
+            OR students.coursecode LIKE %s
+            OR students.yearlevel LIKE %s
+            OR students.gender LIKE %s
+            OR colleges.collegename LIKE %s
+            OR colleges.collegecode LIKE %s
+    """
+    cursor.execute(query, (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query))
     students = cursor.fetchall()
     cursor.close()
     return students
+
 
 def delete_student(stud_id):
     cursor = mysql.connection.cursor()

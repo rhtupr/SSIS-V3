@@ -12,7 +12,7 @@
         <input id="image_url" type="text" name="image_url" value="{{ image_url or "https://res.cloudinary.com/dxsfyb8kj/image/upload/v1701792008/ssis/0d37e2266c3a6983fdeddbb4e2eafa87_tzglpn.jpg" }}" hidden>
         <input type="file" id="file-input" accept="image/*" hidden>
         <button id="file-button" type="button" class="btn btn-primary col-md-6 mx-auto" style="margin-top: 10px;">Upload Image</button>
-        <!-- <p> Accepted Image Type: JPG, JPEG, PNG; Maximum Size: 1MB</p> -->
+        <p> Accepted Image Type: JPG, JPEG, PNG; Maximum Size: 1MB</p>
     </div>
 
     <!-- Student Details Section -->
@@ -57,6 +57,7 @@
     const imagePreview = document.getElementById('student_info_image');
     const imageUrlInput = document.getElementById('image_url');
     const imagePreviewContainer = document.getElementById('student_image_container')
+    const maxSize = 1024 * 1024; // 1MB
 
     fileButton.addEventListener('click', () => {
         fileInput.click();
@@ -64,8 +65,23 @@
 
     fileInput.addEventListener('change', async () => {
         try {
+            const selectedFile = fileInput.files[0];
+
+            // Check file size
+            if (selectedFile.size > maxSize) {
+                alert('File size exceeds 1MB. Please choose a smaller file.');
+                return;
+            }
+
+            // Check file type
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(selectedFile.type)) {
+                alert('Invalid file type. Please choose a JPG, JPEG, or PNG file.');
+                return;
+            }
+
             const formData = new FormData();
-            formData.append("file", fileInput.files[0]);
+            formData.append("file", selectedFile);
             formData.append("csrf_token", "{{csrf_token()}}");
 
             const response = await fetch("{{url_for('students.upload_to_cloudinary')}}", {
@@ -76,11 +92,10 @@
             const data = await response.json();
 
             if (data && data.is_success) {
-
                 const img = document.createElement("img");
                 img.id = 'student_info_image';
-                img.alt = "New Image Photo"
-                img.src = data.url
+                img.alt = "New Image Photo";
+                img.src = data.url;
 
                 imagePreviewContainer.innerHTML = '';
                 imagePreviewContainer.appendChild(img);
